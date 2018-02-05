@@ -6,33 +6,95 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
-  Text,
-  View
 } from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import {
+  Router,
+  Scene,
+  Tabs,
+  Stack,
+  Reducer,
+} from 'react-native-router-flux';
+
+import {
+  THEME_COLOR,
+  TEXT_MAIN_COLOR,
+} from './app/common/Configure';
+import backImage from './app/images/navigtionbar_back.png'
+
+import Home from './app/controller/home/Home';
+import Mine from './app/controller/mine/Mine';
+import TabIcon from './app/components/TabIcon';
+
+getSceneStyle = () => {
+  return ({
+    backgroundColor: '#FFF',
+    shadowRadius: 3,
+    shadowOpacity: 1,
+  });
+}
+
+createReducer = (params) => {
+  const defaultReducer = new Reducer(params);
+  return (state, action) => {
+    console.log('ACTION: ', action);
+    return defaultReducer(state, action);
+  };
+}
+
 
 export default class App extends Component<{}> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+      <Router
+        getSceneStyle={getSceneStyle}
+        uriPrefix="redye.com"
+        createReduce={createReducer}
+      >
+        <Stack
+          navigationBarStyle={{backgroundColor: THEME_COLOR}}
+          titleStyle={styles.titleStyle}
+          backButtonImage={backImage}
+        >
+          <Tabs
+            key='tabbar'
+            swipeEnabled={false}
+            showLabel={true}
+            tabBarStyle={styles.tabBarStyle}
+            activeBackgroundColor="rgba(236, 236, 236, 1)"
+            inactiveBackgroundColor="rgba(236, 236, 236, 1)"
+            activeTintColor={THEME_COLOR}
+            inactiveTintColor={TEXT_MAIN_COLOR}
+            labelStyle={styles.labelStyle}
+            hideNavBar
+            initial
+          >
+            <Stack
+              key="home_tab"
+              title="home"
+              tabBarLabel="首页"
+              inactiveBackgroundColor="#FFF"
+              activeBackgroundColor="#DDD"
+              icon={TabIcon}
+              initial
+            >
+              <Scene key="home" component={Home} title="首页_scene" hideNavBar={false} />
+            </Stack>
+
+            <Stack
+              key="mine_tab"
+              title="mine"
+              tabBarLabel="我的"
+              inactiveBackgroundColor="#FFF"
+              activeBackgroundColor="#DDD"
+              icon={TabIcon}
+            >
+              <Scene key="mine" component={Mine} title="我的_scene" hideNavBar={false} />
+            </Stack>
+          </Tabs>
+        </Stack>
+      </Router>
     );
   }
 }
@@ -44,14 +106,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  tabBarStyle: {
+    backgroundColor: '#EEE',
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  tabBarSelectedItemStyle: {
+    backgroundColor: '#DDD',
   },
+  titleStyle: {
+    color: '#FFF',
+    alignSelf: 'center'
+  },
+  labelStyle:{
+    fontSize: 15
+  }
 });
