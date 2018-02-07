@@ -53,7 +53,7 @@ export default class App extends Component<{}> {
         createReduce={createReducer}
       >
         <Stack
-          navigationBarStyle={{backgroundColor: THEME_COLOR}}
+          navigationBarStyle={styles.navigationBarStyle}
           titleStyle={styles.titleStyle}
           backButtonImage={backImage}
         >
@@ -108,6 +108,10 @@ const styles = StyleSheet.create({
   },
   tabBarStyle: {
     backgroundColor: '#EEE',
+  },
+  navigationBarStyle: {
+    backgroundColor: THEME_COLOR,
+    borderBottomColor: THEME_COLOR,
   },
   tabBarSelectedItemStyle: {
     backgroundColor: '#DDD',
