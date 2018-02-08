@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
 
 import {
     StyleSheet,
     View,
     ART,
-    Text
+    Text,
+    Animated
 } from 'react-native';
 
 
@@ -18,7 +19,7 @@ const {
     ClippingRectangle,
 } = ART;
 
-export default class CircleProgress extends React.Component {
+export default class CircleComponent extends React.Component {
 
     static propTypes = {
         radius: PropTypes.number,
@@ -29,6 +30,7 @@ export default class CircleProgress extends React.Component {
         showProgress: PropTypes.bool,
         fontSize: PropTypes.number,
         textColor: PropTypes.string,
+        margin: PropTypes.number,
     }
 
     static defaultProps = {
@@ -39,7 +41,8 @@ export default class CircleProgress extends React.Component {
         progress: 0,
         showProgress: true,
         fontSize: 14,
-        textColor: '#333'
+        textColor: '#333',
+        margin: 2,
     }
 
     constructor(props) {
@@ -47,14 +50,31 @@ export default class CircleProgress extends React.Component {
 
         // 起点和半径
         this._x = this.props.radius;
-        this._y = this.props.progressWidth / 2.0;
-        this._r = this.props.radius - this.props.progressWidth / 2.0;
+        this._y = this.props.progressWidth / 2.0 + this.props.margin;
+        this._r = this.props.radius - this.props.progressWidth / 2.0 - this.props.margin;
         // 内切正方形的半径
-        let cr = this.props.radius - this.props.progressWidth;
+        let cr = this.props.radius - this.props.progressWidth - this.props.margin;
         // 内切正方向的宽度
         this._cw = cr / Math.sqrt(2) * 2;
         // 内切正方形的起点
-        this_cx = this._cy = this._cr;
+        this_cx = this._cy = this.props.radius - this._cw / 2.0;
+        this.state = {
+            progress: props.progress,
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps !== this.props) {
+            let progress = nextProps.progress;
+            this.setProgress(progress);
+        }
+    }
+
+    setProgress = (progress) => {
+        console.log('进度改变 =>', progress);
+        this.setState({
+            progress: progress,
+        });
     }
 
     _inactivePath = () => {
@@ -62,7 +82,7 @@ export default class CircleProgress extends React.Component {
         // function(x, y, rx, ry, outer, counterClockwise, rotation)
         // 第一个半圆终点
         let x = this._x;
-        let y =  this.props.radius * 2 - this.props.progressWidth / 2.0;
+        let y =  this.props.radius * 2 - this.props.progressWidth / 2.0 - this.props.margin;
         path
         .moveTo(this._x, this._y)
         .arcTo(x, y, this._r, this._r, 0, 1, 0)
@@ -78,7 +98,7 @@ export default class CircleProgress extends React.Component {
 
     _activePath = () => {
         // 角度
-        let angle = 360 * this.props.progress / 100;
+        let angle = 360 * this.state.progress / 100;
         let path = new Path();
         if (angle <= 90) {
             let radian = this._radian(angle);
@@ -94,8 +114,10 @@ export default class CircleProgress extends React.Component {
         } else if (angle <= 270) {
             let delta = 270 - angle;
             let radian = this._radian(delta);
-            let x = this.props.radius - this._r * Math.sin(radian);
-            let y = this.props.radius + this._r * Math.cos(radian);
+            let x = this.props.radius - this._r * Math.cos(radian);
+            let y = this.props.radius + this._r * Math.sin(radian);
+            console.log('====>delta, radian, x, y,');
+            console.log('====>', delta, radian, x, y);
             path.moveTo(this._x, this._y).arcTo(x, y, this._r, this._r, 1, 0, 0);
         } else if (angle < 360) {
             let delta = 360 - angle;
@@ -105,7 +127,7 @@ export default class CircleProgress extends React.Component {
             path.moveTo(this._x, this._y).arcTo(x, y, this._r, this._r, 1, 0, 0);
         } else {
             let x = this._x;
-            let y =  this.props.radius * 2 - this.props.progressWidth / 2.0;
+            let y =  this.props.radius * 2 - this.props.progressWidth / 2.0 - this.props.margin;
             path
             .moveTo(this._x, this._y)
             .arcTo(x, y, this._r, this._r, 0, 1, 0)
@@ -118,7 +140,7 @@ export default class CircleProgress extends React.Component {
     _textArea = () => {
         return (
             <View style={{position: 'absolute', top: this._cx, left: this._cy, width: this._cw, height: this._cw, alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{fontSize: this.props.fontSize, color: this.props.textColor}}>{`${this.props.progress}%`}</Text>
+                <Text style={{fontSize: this.props.fontSize, color: this.props.textColor}}>{`${parseInt(this.state.progress)}%`}</Text>
             </View>
         );
     }

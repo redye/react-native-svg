@@ -3,15 +3,18 @@ import React from 'react';
 import {
     View,
     ART,
+    TouchableOpacity,
+    Text,
 } from 'react-native';
-import CircleProgress from '../../components/CircleProgress';
+import CircleComponent from '../../components/progress/CircleComponent';
+import Progress from '../../components/progress/Progress';
 
 const {
     Surface,
     Shape,
     Group,
     Path,
-    Text,
+    // Text,
     Transform,
     ClippingRectangle,
 } = ART;
@@ -74,9 +77,8 @@ export default class Home extends React.Component {
                         x={100}
                         y={150}
                         transform={new Transform().rotateTo(72)}
-                    >
-                        Hello World
-                    </Text>
+                    >Hello World</Text>
+                    
                     <Shape d="M250 0 L 200 250" fill="#f00" alignment="center">dfhlhgiowerjfsdlkfesjfld</Shape>
                     <Shape d={ new Path().moveTo(0,0).lineTo(200,200) } stroke="#0f0" strokeWidth={10}/>
 
@@ -97,25 +99,28 @@ export default class Home extends React.Component {
     render() {
         return (
             <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                <CircleProgress 
+                <Progress.Circle 
                     style={{marginTop: 20, marginLeft: 20}} 
                     radius={50} 
                     progressWidth={4} 
                     inactiveColor='#ddd' 
                     activeColor='#f00'
-                    progress={25} 
+                    progress={20} 
                 />
 
-                <CircleProgress 
+                <Progress.Circle  
                     style={{marginTop: 20, marginLeft: 20}} 
                     radius={50} 
                     progressWidth={6} 
                     inactiveColor='#ddd' 
                     activeColor='#f00'
-                    progress={40} 
+                    progress={90} 
+                    duration={5 * 1000}
+                    ref='progress'
+                    animation={true}
                 />
 
-                <CircleProgress 
+                <CircleComponent 
                     style={{marginTop: 20, marginLeft: 20}} 
                     radius={50} 
                     progressWidth={8} 
@@ -124,7 +129,7 @@ export default class Home extends React.Component {
                     progress={60} 
                 />
 
-                <CircleProgress 
+                <CircleComponent 
                     style={{marginTop: 20, marginLeft: 20}} 
                     radius={50} 
                     progressWidth={10} 
@@ -132,7 +137,7 @@ export default class Home extends React.Component {
                     activeColor='#f00'
                     progress={85} 
                 />
-                <CircleProgress 
+                <CircleComponent 
                     style={{marginTop: 20, marginLeft: 20}} 
                     radius={50} 
                     progressWidth={7} 
@@ -140,6 +145,12 @@ export default class Home extends React.Component {
                     activeColor='#f00'
                     progress={100} 
                 />
+
+                <TouchableOpacity onPress={() => {
+                    this.refs.progress.setProgress(75);
+                }}>
+                    <Text style={{backgroundColor: '#ff0', padding: 20, margin: 10}}>点我</Text>
+                </TouchableOpacity>
             </View>
         );
     }
