@@ -10,6 +10,7 @@ import {
 import CircleComponent from '../../components/progress/CircleComponent';
 import BarComponent from '../../components/progress/BarComponent';
 import Progress from '../../components/progress/Progress';
+import PieComponent from '../../components/progress/PieComponent';
 
 const {
     Surface,
@@ -150,9 +151,10 @@ export default class Home extends React.Component {
                     />
 
                     <TouchableOpacity onPress={() => {
-                        // this.refs.progress.setProgress(10);
+                        this.refs.progress.setProgress(10);
                         this.refs.bar.setProgress(90);
                         this.refs.bar2.setProgress(30);
+                        this.refs.pie.setProgress(65);
                     }}>
                         <Text style={{backgroundColor: '#ff0', padding: 20, margin: 10}}>点我</Text>
                     </TouchableOpacity>
@@ -164,6 +166,10 @@ export default class Home extends React.Component {
                         <Text style={{marginLeft: 8, backgroundColor: 'orange'}}>test</Text>
                     </View>
                     <Progress.Bar ref="bar2" style={{marginTop: 20}} progress={80} animation={true} duration={3000}/>
+                </View>
+                <View style={{marginTop: 20, marginLeft: 20, flexDirection: 'row'}}>
+                    <PieComponent radius={70} progress={70} />
+                    <Progress.Pie ref='pie' style={{marginLeft: 20}} radius={70} progress={20} duration={500} strokeColor='orange' />
                 </View>
             </View>
         );

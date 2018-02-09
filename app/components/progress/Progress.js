@@ -7,9 +7,11 @@ import {
 
 import CircleComponent from './CircleComponent';
 import BarComponent from './BarComponent';
+import PieComponent from './PieComponent';
 
 const AnimatedCircleComponent = Animated.createAnimatedComponent(CircleComponent);
 const AnimatedBarComponent = Animated.createAnimatedComponent(BarComponent);
+const AnimatedPieComponent = Animated.createAnimatedComponent(PieComponent);
 
 class Progress extends React.Component {
     static propTypes = {
@@ -28,7 +30,7 @@ class Progress extends React.Component {
         super(props);
 
         this.state = {
-            progress: new Animated.Value(0)
+            progress: new Animated.Value(0),
         }
     }
 
@@ -90,7 +92,16 @@ class Bar extends Progress {
     }
 }
 
+class Pie  extends Progress {
+    render() {
+        return (
+            <AnimatedPieComponent {...this.props} progress={this.state.progress} />
+        );
+    }
+}
+
 export default Progress = {
     Circle: Circle,
     Bar: Bar,
+    Pie: Pie,
 }
