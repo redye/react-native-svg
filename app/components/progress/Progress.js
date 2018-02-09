@@ -6,8 +6,10 @@ import {
 } from 'react-native';
 
 import CircleComponent from './CircleComponent';
+import BarComponent from './BarComponent';
 
 const AnimatedCircleComponent = Animated.createAnimatedComponent(CircleComponent);
+const AnimatedBarComponent = Animated.createAnimatedComponent(BarComponent);
 
 class Progress extends React.Component {
     static propTypes = {
@@ -25,9 +27,8 @@ class Progress extends React.Component {
     constructor(props) {
         super(props);
 
-        let progress = this._progressValue(this.props.progress);
         this.state = {
-            progress: new Animated.Value(progress)
+            progress: new Animated.Value(0)
         }
     }
 
@@ -38,7 +39,6 @@ class Progress extends React.Component {
     componentDidMount() {
         let progress = this._progressValue(this.props.progress);
         this.setProgress(progress);
-        console.log('开始动画，==>', progress);
     }
 
     _progressValue = (progress) => {
@@ -46,8 +46,8 @@ class Progress extends React.Component {
     }
 
     setProgress = (progress) => {
+        console.log('开始动画');
         progress = this._progressValue(progress);
-        console.log('开始动画2，==>', progress);
         if (this.props.animation) {
             Animated.timing(this.state.progress, {
                 duration: this.props.duration,
@@ -74,21 +74,23 @@ class Progress extends React.Component {
 
 class Circle extends Progress {
 
-    componentDidMount() {
-        super.componentDidMount();
+    render() {
+        return (
+            <AnimatedCircleComponent {...this.props} progress={this.state.progress} />
+        );
     }
+}
 
-    componentWillUnmount() {
-        super.componentWillUnmount();
-    }
+class Bar extends Progress {
 
     render() {
         return (
-            <AnimatedCircleComponent ref={(c) => this.c = c} {...this.props} progress={this.state.progress} />
+            <AnimatedBarComponent  {...this.props} progress={this.state.progress} />
         );
     }
 }
 
 export default Progress = {
     Circle: Circle,
+    Bar: Bar,
 }

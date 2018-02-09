@@ -7,6 +7,7 @@ import {
     Text,
 } from 'react-native';
 import CircleComponent from '../../components/progress/CircleComponent';
+import BarComponent from '../../components/progress/BarComponent';
 import Progress from '../../components/progress/Progress';
 
 const {
@@ -98,59 +99,68 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                <Progress.Circle 
-                    style={{marginTop: 20, marginLeft: 20}} 
-                    radius={50} 
-                    progressWidth={4} 
-                    inactiveColor='#ddd' 
-                    activeColor='#f00'
-                    progress={20} 
-                />
+            <View>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                    <Progress.Circle 
+                        style={{marginTop: 20, marginLeft: 20}} 
+                        radius={50} 
+                        strokeWidth={4} 
+                        inactiveColor='#ddd' 
+                        activeColor='#f00'
+                        progress={20} 
+                    />
 
-                <Progress.Circle  
-                    style={{marginTop: 20, marginLeft: 20}} 
-                    radius={50} 
-                    progressWidth={6} 
-                    inactiveColor='#ddd' 
-                    activeColor='#f00'
-                    progress={90} 
-                    duration={5 * 1000}
-                    ref='progress'
-                    animation={true}
-                />
+                    <Progress.Circle  
+                        style={{marginTop: 20, marginLeft: 20}} 
+                        radius={50} 
+                        strokeWidth={6} 
+                        inactiveColor='#ddd' 
+                        activeColor='#f00'
+                        progress={90} 
+                        duration={2 * 1000}
+                        ref='progress'
+                        animation={true}
+                    />
 
-                <CircleComponent 
-                    style={{marginTop: 20, marginLeft: 20}} 
-                    radius={50} 
-                    progressWidth={8} 
-                    inactiveColor='#ddd' 
-                    activeColor='#f00'
-                    progress={60} 
-                />
+                    <CircleComponent 
+                        style={{marginTop: 20, marginLeft: 20}} 
+                        radius={50} 
+                        strokeWidth={8} 
+                        inactiveColor='#ddd' 
+                        activeColor='#f00'
+                        progress={60} 
+                    />
 
-                <CircleComponent 
-                    style={{marginTop: 20, marginLeft: 20}} 
-                    radius={50} 
-                    progressWidth={10} 
-                    inactiveColor='#ddd' 
-                    activeColor='#f00'
-                    progress={85} 
-                />
-                <CircleComponent 
-                    style={{marginTop: 20, marginLeft: 20}} 
-                    radius={50} 
-                    progressWidth={7} 
-                    inactiveColor='#ddd' 
-                    activeColor='#f00'
-                    progress={100} 
-                />
+                    <CircleComponent 
+                        style={{marginTop: 20, marginLeft: 20}} 
+                        radius={50} 
+                        strokeWidth={10} 
+                        inactiveColor='#ddd' 
+                        activeColor='#f00'
+                        progress={85} 
+                    />
+                    <CircleComponent 
+                        style={{marginTop: 20, marginLeft: 20}} 
+                        radius={50} 
+                        strokeWidth={7} 
+                        inactiveColor='#ddd' 
+                        activeColor='#f00'
+                        progress={100} 
+                    />
 
-                <TouchableOpacity onPress={() => {
-                    this.refs.progress.setProgress(75);
-                }}>
-                    <Text style={{backgroundColor: '#ff0', padding: 20, margin: 10}}>点我</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+                        // this.refs.progress.setProgress(10);
+                        this.refs.bar.setProgress(90);
+                        this.refs.bar2.setProgress(30);
+                    }}>
+                        <Text style={{backgroundColor: '#ff0', padding: 20, margin: 10}}>点我</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={{marginTop: 20, marginLeft: 20}}>
+                    <Progress.Bar ref="bar" style={{marginTop: 20, marginLeft: 20}} progress={10} animation={true} duration={3000}/>
+                    <Progress.Bar ref="bar2" style={{marginTop: 20, marginLeft: 20}} progress={80} animation={true} duration={3000}/>
+                </View>
             </View>
         );
     }
