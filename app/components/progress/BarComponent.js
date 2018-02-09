@@ -84,6 +84,14 @@ export default class BarComponent extends React.Component {
         });
     }
 
+    _textArea = () => {
+        return (
+            <View style={{marginLeft: 8, marginRight: 8}}>
+                <Text style={{fontSize: this.props.fontSize, color: this.props.textColor}}>{`${parseInt(this.state.progress)}%`}</Text>
+            </View>
+        );
+    }
+
     render() {
         return (
             <View style={[styles.container, this.props.style]}>
@@ -91,6 +99,7 @@ export default class BarComponent extends React.Component {
                     <Shape d={this._inactivePath()} strokeWidth={this.props.strokeWidth} stroke={this.props.inactiveColor} strokeCap={this.props.strokeCap} />
                     <Shape d={this._activePath()} strokeWidth={this.props.strokeWidth} stroke={this.props.activeColor} strokeCap={this.props.strokeCap} />
                 </Surface>
+                {this.props.showProgress ? this._textArea() : null}
             </View>
         );
     }
@@ -98,5 +107,7 @@ export default class BarComponent extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+        flexDirection: 'row',
+        alignItems: 'center',
     }
 });

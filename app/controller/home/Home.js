@@ -5,6 +5,7 @@ import {
     ART,
     TouchableOpacity,
     Text,
+    StyleSheet,
 } from 'react-native';
 import CircleComponent from '../../components/progress/CircleComponent';
 import BarComponent from '../../components/progress/BarComponent';
@@ -99,7 +100,7 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
                     <Progress.Circle 
                         style={{marginTop: 20, marginLeft: 20}} 
@@ -157,11 +158,20 @@ export default class Home extends React.Component {
                     </TouchableOpacity>
                 </View>
 
-                <View style={{marginTop: 20, marginLeft: 20}}>
-                    <Progress.Bar ref="bar" style={{marginTop: 20, marginLeft: 20}} progress={10} animation={true} duration={3000}/>
-                    <Progress.Bar ref="bar2" style={{marginTop: 20, marginLeft: 20}} progress={80} animation={true} duration={3000}/>
+                <View style={{marginTop: 20, marginLeft: 20, marginRight: 20}}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <Progress.Bar ref="bar" progress={10} animation={true} duration={3000} width={250}/>
+                        <Text style={{marginLeft: 8, backgroundColor: 'orange'}}>test</Text>
+                    </View>
+                    <Progress.Bar ref="bar2" style={{marginTop: 20}} progress={80} animation={true} duration={3000}/>
                 </View>
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    }
+});
