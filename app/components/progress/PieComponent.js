@@ -72,7 +72,7 @@ export default class PieComponent extends React.Component {
         let endY = this.props.radius + this._r * Math.cos(radian);
         let outer = 180 - angle >= 0 ? 0 : 1;
         let path = null;
-        if (angle % 360 == 0) {
+        if (angle > 0 && angle % 360 == 0) {
             let y = this.props.radius * 2 - this.props.offset - this.props.strokeWidth / 2.0;
             path = `M${this._startX} ${this._startY}
                     A${this._r} ${this._r}, 0, 0, 1, ${this._startX} ${y}

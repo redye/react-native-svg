@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     Text,
     StyleSheet,
+    TextInput,
 } from 'react-native';
 import CircleComponent from '../../components/progress/CircleComponent';
 import BarComponent from '../../components/progress/BarComponent';
@@ -109,7 +110,7 @@ export default class Home extends React.Component {
                         strokeWidth={4} 
                         inactiveColor='#ddd' 
                         activeColor='#f00'
-                        progress={20} 
+                        progress={0} 
                     />
 
                     <Progress.Circle  
@@ -162,15 +163,20 @@ export default class Home extends React.Component {
 
                 <View style={{marginTop: 20, marginLeft: 20, marginRight: 20}}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <Progress.Bar ref="bar" progress={10} animation={true} duration={3000} width={250}/>
+                        <Progress.Bar ref="bar" progress={0} animation={true} duration={3000} width={250}/>
                         <Text style={{marginLeft: 8, backgroundColor: 'orange'}}>test</Text>
                     </View>
                     <Progress.Bar ref="bar2" style={{marginTop: 20}} progress={80} animation={true} duration={3000}/>
                 </View>
                 <View style={{marginTop: 20, marginLeft: 20, flexDirection: 'row'}}>
                     <PieComponent radius={70} progress={70} />
-                    <Progress.Pie ref='pie' style={{marginLeft: 20}} radius={70} progress={20} duration={500} strokeColor='orange' />
+                    <Progress.Pie ref='pie' style={{marginLeft: 20}} radius={70} progress={0} duration={500} strokeColor='orange' />
                 </View>
+
+                <TextInput 
+                    style={{marginTop: 20, marginLeft: 20, width: 100, height: 30}} 
+                    placeholder="placeholder"
+                />
             </View>
         );
     }
