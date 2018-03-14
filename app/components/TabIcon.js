@@ -10,6 +10,10 @@ const tabImages = {
         normal: require('../images/tab_btn_home_normal.png'),
         selected: require('../images/tab_btn_home_selected.png')
     }, 
+    message: {
+        normal: require('../images/tab_btn_chat_normal.png'),
+        selected: require('../images/tab_btn_chat_selected.png')
+    },
     mine:{
         normal: require('../images/tab_btn_profile_normal.png'),
         selected: require('../images/tab_btn_profile_selected.png')

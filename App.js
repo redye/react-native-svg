@@ -25,6 +25,7 @@ import backImage from './app/images/navigtionbar_back.png'
 
 import Home from './app/controller/home/Home';
 import Mine from './app/controller/mine/Mine';
+import Message from './app/controller/message/Message';
 import TabIcon from './app/components/TabIcon';
 
 getSceneStyle = () => {
@@ -72,7 +73,7 @@ export default class App extends Component<{}> {
           >
             <Stack
               key="home_tab"
-              title="home"
+              title="home"  
               tabBarLabel="首页"
               inactiveBackgroundColor="#FFF"
               activeBackgroundColor="#DDD"
@@ -80,6 +81,17 @@ export default class App extends Component<{}> {
               initial
             >
               <Scene key="home" component={Home} title="首页_scene" hideNavBar={false} />
+            </Stack>
+
+            <Stack
+              key="message_tab"
+              title="message"
+              tabBarLabel="消息"
+              inactiveBackgroundColor="#FFF"
+              activeBackgroundColor="#DDD"
+              icon={TabIcon}
+            >
+              <Scene key="message" component={Message} title="消息_scene" hideNavBar={false} />
             </Stack>
 
             <Stack
