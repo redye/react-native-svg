@@ -103,7 +103,7 @@ export default class Home extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                {/* <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
                     <Progress.Circle 
                         style={{marginTop: 20, marginLeft: 20}} 
                         radius={50} 
@@ -159,7 +159,7 @@ export default class Home extends React.Component {
                     }}>
                         <Text style={{backgroundColor: '#ff0', padding: 20, margin: 10}}>点我</Text>
                     </TouchableOpacity>
-                </View>
+                </View> */}
 
                 <View style={{marginTop: 20, marginLeft: 20, marginRight: 20}}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -173,10 +173,6 @@ export default class Home extends React.Component {
                     <Progress.Pie ref='pie' style={{marginLeft: 20}} radius={70} progress={0} duration={500} strokeColor='orange' />
                 </View>
 
-                <TextInput 
-                    style={{marginTop: 20, marginLeft: 20, width: 100, height: 30}} 
-                    placeholder="placeholder"
-                />
             </View>
         );
     }

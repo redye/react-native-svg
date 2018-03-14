@@ -10,7 +10,7 @@ export default class Mine extends React.Component {
     render() {
         return (
             <View style={{backgroundColor: "#fff"}}>
-                <MorphSVG />
+                {/* <MorphSVG /> */}
             </View>
         );
     }
